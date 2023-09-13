@@ -1,0 +1,94 @@
+.postBig {
+    border: 1px solid #919eab52;
+    box-shadow: 3px 3px 6px #919eab52;
+    border-radius: 1em;
+    grid-column: 1 / 3;
+}
+
+.postSmall {
+    border: 1px solid #919eab52;
+    box-shadow: 3px 3px 6px #919eab52;
+    border-radius: 1em;
+}
+
+.postBody {
+    padding: 20px 10px 30px;
+}
+
+.small {
+    height: calc(100% - 273px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.mainImg {
+    border-radius: 1em 1em 0 0;
+}
+
+.postTitleContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: end;
+}
+
+.buttonReadAll {
+    border: 1px solid black;
+    border-radius: 1em;
+    padding: 10px 15px;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+h3 {
+    margin: 0;
+    font-size: 28px;
+    line-height: 32px;
+}
+
+.ratingsPanel {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+.ratingsPanel > * + * {
+    margin-left: 5px;
+}
+
+.ratingsPanel > label {
+    font-size: 16px;
+}
+
+.postFooterContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.postFooterContainer > * + * {
+    margin-left: 5px;
+}
+
+.grade {
+    width: 32px;
+    height: 32px;
+    padding: 1px;
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.grade > img {
+    width: 28px;
+    height: 28px;
+}
+
+.buttonReadAllFooter {
+    margin-left: auto;
+}
+
+.dislike {
+    position: relative;
+    top: 5px;
+}

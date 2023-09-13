@@ -9,16 +9,22 @@ type PostType = {
     id: number;
     title: string;
     body: string;
+    likes: number;
+    dislikes: number;
 };
 
 type InitialStateType = {
-    posts: PostType[];
+    postsList: PostType[];
+    userPostLikes: number[];
+    userPostDislikes: number[];
     loading: boolean;
     error: string | null;
 };
 
 const initialState: InitialStateType = {
-    posts: [],
+    postsList: [],
+    userPostLikes: [],
+    userPostDislikes: [],
     loading: false,
     error: null,
 };
@@ -51,7 +57,16 @@ const postsSlice = createSlice({
                 state.error = null;
             })
             .addCase(fetchPosts.fulfilled, (state, action) => {
-                state.posts = action.payload;
+                function getRandomInt(max: number) {
+                    return Math.floor(Math.random() * max);
+                }
+
+                action.payload.forEach((item, index) => {
+                    state.postsList.push(item);
+                    state.postsList[index].likes = getRandomInt(50);
+                    state.postsList[index].dislikes = getRandomInt(50);
+                });
+
                 state.loading = false;
             })
             .addCase(fetchPosts.rejected, (state) => {
