@@ -1,0 +1,37 @@
+.pageContainer {
+    width: 1140px;
+    margin: 0 auto;
+}
+
+.topPanel {
+    display: flex;
+    margin-top: 20px;
+    align-items: center;
+}
+
+.topPanel__buttonBack {
+    display: block;
+    text-decoration: none;
+    color: black;
+    padding: 10px 15px;
+}
+
+.topPanel__buttonBack > label {
+    margin-left: 5px;
+}
+
+.topPanel__ratingsContainer {
+    margin-left: auto;
+}
+
+.mainContent {
+    padding-top: 20px;
+}
+
+.mainContent > h1 {
+    text-align: center;
+}
+
+.mainContent__body {
+    padding: 0 calc((100% - 848px) / 2);
+}

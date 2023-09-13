@@ -1,0 +1,31 @@
+.ratingsPanel {
+    display: flex;
+    align-items: center;
+}
+
+.ratingsPanel > * + * {
+    margin-left: 5px;
+}
+
+.ratingsPanel > label {
+    font-size: 16px;
+}
+
+.grade {
+    width: 32px;
+    height: 32px;
+    padding: 1px;
+    border: 0;
+    background-color: transparent;
+    cursor: pointer;
+}
+
+.grade > img {
+    width: 28px;
+    height: 28px;
+}
+
+.dislike {
+    position: relative;
+    top: 5px;
+}

@@ -4,7 +4,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 
 //Типы
 
-type PostType = {
+export type PostType = {
     idList: number;
     userId: number;
     id: number;

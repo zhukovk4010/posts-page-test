@@ -1,11 +1,8 @@
 import styles from './post.module.css';
-import likeDefault from '../../images/Like-default.png';
-import dislikeDefault from '../../images/Dislike-default.png';
-import likeActive from '../../images/Like-active.png';
-import dislikeActive from '../../images/Dislike.png';
-import { useAppDispatch, useAppSelector } from '../../hooks/store-hooks';
-import { dislikePost, likePost } from '../../store/slices/postsSlice';
+
+import { useAppSelector } from '../../hooks/store-hooks';
 import { Link } from 'react-router-dom';
+import ReactionSection from '../reaction-section/reaction-section';
 
 type PropsType = {
     id: number;
@@ -33,8 +30,6 @@ const Post = ({
         (state) => state.posts.userPostsDislikes
     );
 
-    const dispatch = useAppDispatch();
-
     return (
         <section className={postSize ? styles.postBig : styles.postSmall}>
             <img
@@ -50,44 +45,14 @@ const Post = ({
                 <div className={styles.postBody}>
                     <div className={styles.postTitleContainer}>
                         <h3>{title}</h3>
-                        <div className={styles.ratingsPanel}>
-                            <button
-                                className={styles.grade}
-                                onClick={() =>
-                                    dispatch(
-                                        likePost({ id: id, idList: idList })
-                                    )
-                                }
-                            >
-                                <img
-                                    src={
-                                        userPostsLikes.includes(id)
-                                            ? likeActive
-                                            : likeDefault
-                                    }
-                                    alt=''
-                                />
-                            </button>
-                            <label>{likes}</label>
-                            <button
-                                className={`${styles.grade} ${styles.dislike}`}
-                                onClick={() =>
-                                    dispatch(
-                                        dislikePost({ id: id, idList: idList })
-                                    )
-                                }
-                            >
-                                <img
-                                    src={
-                                        userPostsDislikes.includes(id)
-                                            ? dislikeActive
-                                            : dislikeDefault
-                                    }
-                                    alt=''
-                                />
-                            </button>
-                            <label>{dislikes}</label>
-                        </div>
+                        <ReactionSection
+                            id={id}
+                            idList={idList}
+                            likes={likes}
+                            dislikes={dislikes}
+                            userPostsLikes={userPostsLikes}
+                            userPostsDislikes={userPostsDislikes}
+                        />
                     </div>
                     <p>{body}</p>
                     <Link
@@ -101,40 +66,14 @@ const Post = ({
                 <div className={`${styles.postBody} ${styles.small}`}>
                     <h3>{title}</h3>
                     <div className={styles.postFooterContainer}>
-                        <button
-                            className={styles.grade}
-                            onClick={() =>
-                                dispatch(likePost({ id: id, idList: idList }))
-                            }
-                        >
-                            <img
-                                src={
-                                    userPostsLikes.includes(id)
-                                        ? likeActive
-                                        : likeDefault
-                                }
-                                alt=''
-                            />
-                        </button>
-                        <label>{likes}</label>
-                        <button
-                            className={`${styles.grade} ${styles.dislike}`}
-                            onClick={() =>
-                                dispatch(
-                                    dislikePost({ id: id, idList: idList })
-                                )
-                            }
-                        >
-                            <img
-                                src={
-                                    userPostsDislikes.includes(id)
-                                        ? dislikeActive
-                                        : dislikeDefault
-                                }
-                                alt=''
-                            />
-                        </button>
-                        <label>{dislikes}</label>
+                        <ReactionSection
+                            id={id}
+                            idList={idList}
+                            likes={likes}
+                            dislikes={dislikes}
+                            userPostsLikes={userPostsLikes}
+                            userPostsDislikes={userPostsDislikes}
+                        />
                         <Link
                             className={styles.buttonReadAll}
                             to={{ pathname: `/posts/${id}` }}

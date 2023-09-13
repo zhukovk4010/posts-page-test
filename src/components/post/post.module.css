@@ -32,24 +32,14 @@
     align-items: end;
 }
 
+.postTitleContainer > div {
+    margin-left: auto;
+}
+
 h3 {
     margin: 0;
     font-size: 28px;
     line-height: 32px;
-}
-
-.ratingsPanel {
-    margin-left: auto;
-    display: flex;
-    align-items: center;
-}
-
-.ratingsPanel > * + * {
-    margin-left: 5px;
-}
-
-.ratingsPanel > label {
-    font-size: 16px;
 }
 
 .postFooterContainer {
