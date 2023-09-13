@@ -4,6 +4,8 @@ import Main from '../main/main';
 import styles from './app.module.css';
 import { useAppDispatch } from '../../hooks/store-hooks';
 import { fetchPosts } from '../../store/slices/postsSlice';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import PostPage from '../../pages/post-page';
 
 const App = () => {
     const dispatch = useAppDispatch();
@@ -12,10 +14,20 @@ const App = () => {
     }, [dispatch]);
 
     return (
-        <div className={styles.app}>
-            <Header />
-            <Main />
-        </div>
+        <BrowserRouter>
+            <Routes>
+                <Route
+                    path='/'
+                    element={
+                        <div className={styles.app}>
+                            <Header />
+                            <Main />
+                        </div>
+                    }
+                />
+                <Route path='/posts/:id' element={<PostPage />} />
+            </Routes>
+        </BrowserRouter>
     );
 };
 

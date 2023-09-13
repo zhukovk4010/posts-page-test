@@ -32,14 +32,6 @@
     align-items: end;
 }
 
-.buttonReadAll {
-    border: 1px solid black;
-    border-radius: 1em;
-    padding: 10px 15px;
-    background-color: transparent;
-    cursor: pointer;
-}
-
 h3 {
     margin: 0;
     font-size: 28px;
@@ -68,6 +60,21 @@ h3 {
 
 .postFooterContainer > * + * {
     margin-left: 5px;
+}
+
+.buttonReadAll {
+    margin-left: auto;
+    display: block;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+}
+.buttonReadAll > div {
+    border: 1px solid black;
+    border-radius: 1em;
+    padding: 10px 15px;
+    width: max-content;
+    background-color: transparent;
 }
 
 .grade {

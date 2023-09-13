@@ -5,6 +5,7 @@ import likeActive from '../../images/Like-active.png';
 import dislikeActive from '../../images/Dislike.png';
 import { useAppDispatch, useAppSelector } from '../../hooks/store-hooks';
 import { dislikePost, likePost } from '../../store/slices/postsSlice';
+import { Link } from 'react-router-dom';
 
 type PropsType = {
     id: number;
@@ -89,9 +90,12 @@ const Post = ({
                         </div>
                     </div>
                     <p>{body}</p>
-                    <button className={styles.buttonReadAll}>
-                        Читать далее
-                    </button>
+                    <Link
+                        className={styles.buttonReadAll}
+                        to={{ pathname: `/posts/${id}` }}
+                    >
+                        <div>Читать далее</div>
+                    </Link>
                 </div>
             ) : (
                 <div className={`${styles.postBody} ${styles.small}`}>
@@ -131,11 +135,12 @@ const Post = ({
                             />
                         </button>
                         <label>{dislikes}</label>
-                        <button
-                            className={`${styles.buttonReadAll} ${styles.buttonReadAllFooter}`}
+                        <Link
+                            className={styles.buttonReadAll}
+                            to={{ pathname: `/posts/${id}` }}
                         >
-                            Читать далее
-                        </button>
+                            <div>Читать далее</div>
+                        </Link>
                     </div>
                 </div>
             )}
