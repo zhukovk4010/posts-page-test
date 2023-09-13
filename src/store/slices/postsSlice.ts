@@ -5,6 +5,7 @@ import { createSlice, createAsyncThunk, PayloadAction } from '@reduxjs/toolkit';
 //Типы
 
 type PostType = {
+    idList: number;
     userId: number;
     id: number;
     title: string;
@@ -15,16 +16,16 @@ type PostType = {
 
 type InitialStateType = {
     postsList: PostType[];
-    userPostLikes: number[];
-    userPostDislikes: number[];
+    userPostsLikes: number[];
+    userPostsDislikes: number[];
     loading: boolean;
     error: string | null;
 };
 
 const initialState: InitialStateType = {
     postsList: [],
-    userPostLikes: [],
-    userPostDislikes: [],
+    userPostsLikes: [],
+    userPostsDislikes: [],
     loading: false,
     error: null,
 };
@@ -49,7 +50,49 @@ export const fetchPosts = createAsyncThunk<PostType[], string | undefined>(
 const postsSlice = createSlice({
     name: 'posts',
     initialState,
-    reducers: {},
+    reducers: {
+        likePost(state, action: PayloadAction<{ id: number; idList: number }>) {
+            if (state.userPostsLikes.includes(action.payload.id)) {
+                state.postsList[action.payload.idList].likes--;
+                state.userPostsLikes = state.userPostsLikes.filter((id) => {
+                    return id !== action.payload.id;
+                });
+            } else {
+                state.postsList[action.payload.idList].likes++;
+                state.userPostsLikes.push(action.payload.id);
+                if (state.userPostsDislikes.includes(action.payload.id)) {
+                    state.postsList[action.payload.idList].dislikes--;
+                    state.userPostsDislikes = state.userPostsDislikes.filter(
+                        (id) => {
+                            return id !== action.payload.id;
+                        }
+                    );
+                }
+            }
+        },
+        dislikePost(
+            state,
+            action: PayloadAction<{ id: number; idList: number }>
+        ) {
+            if (state.userPostsDislikes.includes(action.payload.id)) {
+                state.postsList[action.payload.idList].dislikes--;
+                state.userPostsDislikes = state.userPostsDislikes.filter(
+                    (id) => {
+                        return id !== action.payload.id;
+                    }
+                );
+            } else {
+                state.postsList[action.payload.idList].dislikes++;
+                state.userPostsDislikes.push(action.payload.id);
+                if (state.userPostsLikes.includes(action.payload.id)) {
+                    state.postsList[action.payload.idList].likes--;
+                    state.userPostsLikes = state.userPostsLikes.filter((id) => {
+                        return id !== action.payload.id;
+                    });
+                }
+            }
+        },
+    },
     extraReducers: (builder) => {
         builder
             .addCase(fetchPosts.pending, (state) => {
@@ -60,11 +103,13 @@ const postsSlice = createSlice({
                 function getRandomInt(max: number) {
                     return Math.floor(Math.random() * max);
                 }
+                state.postsList = [];
 
                 action.payload.forEach((item, index) => {
                     state.postsList.push(item);
                     state.postsList[index].likes = getRandomInt(50);
                     state.postsList[index].dislikes = getRandomInt(50);
+                    state.postsList[index].idList = index;
                 });
 
                 state.loading = false;
@@ -75,5 +120,7 @@ const postsSlice = createSlice({
             });
     },
 });
+
+export const { likePost, dislikePost } = postsSlice.actions;
 
 export default postsSlice.reducer;

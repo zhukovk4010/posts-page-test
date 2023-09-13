@@ -16,6 +16,7 @@ const Main = () => {
                             <Post
                                 key={index}
                                 id={post.id}
+                                idList={post.idList}
                                 postSize='big'
                                 title={post.title}
                                 body={post.body}
@@ -26,6 +27,7 @@ const Main = () => {
                     } else {
                         return (
                             <Post
+                                idList={post.idList}
                                 key={index}
                                 id={post.id}
                                 title={post.title}
