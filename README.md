@@ -10,8 +10,8 @@
 
 ## Local start
 
-1. git clone https://github.com/zhukovk4010/air-tickets-test.git
-2. cd air-tickets-test
+1. git clone https://github.com/zhukovk4010/posts-page-test.git
+2. cd posts-page-test
 3. npm i
 4. npm start
 
