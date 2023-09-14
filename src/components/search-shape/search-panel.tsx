@@ -1,8 +1,12 @@
-import styles from './search-panel.module.css';
-import shapeImg from '../../images/Shape.png';
+//Компанент панели поиска статей
+
 import { useState } from 'react';
 import { useAppDispatch } from '../../hooks/store-hooks';
 import { fetchPosts } from '../../store/slices/postsSlice';
+
+import shapeImg from '../../images/Shape.png';
+
+import styles from './search-panel.module.css';
 
 const SearchPanel = () => {
     const [inputValue, setInputValue] = useState('');

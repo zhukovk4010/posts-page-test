@@ -1,15 +1,21 @@
+//Компонент приложения
+
 import { useEffect } from 'react';
-import Header from '../header/header';
-import Main from '../main/main';
-import styles from './app.module.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
 import { useAppDispatch } from '../../hooks/store-hooks';
 import { fetchPosts } from '../../store/slices/postsSlice';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+import Header from '../header/header';
+import Main from '../main/main';
 import PostPage from '../../pages/post-page';
+
+import styles from './app.module.css';
 
 const App = () => {
     const dispatch = useAppDispatch();
     useEffect(() => {
+        //Запрос данных для постов
         dispatch(fetchPosts());
     }, [dispatch]);
 

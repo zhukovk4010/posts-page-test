@@ -1,8 +1,11 @@
-import styles from './post.module.css';
+//Компонент одного поста
 
 import { useAppSelector } from '../../hooks/store-hooks';
 import { Link } from 'react-router-dom';
+
 import ReactionSection from '../reaction-section/reaction-section';
+
+import styles from './post.module.css';
 
 type PropsType = {
     id: number;
@@ -23,17 +26,22 @@ const Post = ({
     dislikes,
     idList,
 }: PropsType) => {
+    //Достаем из стора список id статей, которые лайкнул пользоватетелем
     const userPostsLikes = useAppSelector(
         (state) => state.posts.userPostsLikes
     );
+    //Достаем из стора список id статей, которые дизлайкнул пользоватетелем
     const userPostsDislikes = useAppSelector(
         (state) => state.posts.userPostsDislikes
     );
 
     return (
-        <section className={postSize ? styles.postBig : styles.postSmall}>
+        <section
+            className={
+                postSize ? `${styles.post} ${styles.post__big}` : styles.post
+            }
+        >
             <img
-                className={styles.mainImg}
                 src={
                     postSize
                         ? 'https://placehold.co/1140x600'
@@ -42,8 +50,8 @@ const Post = ({
                 alt=''
             />
             {postSize ? (
-                <div className={styles.postBody}>
-                    <div className={styles.postTitleContainer}>
+                <div className={styles.post__body}>
+                    <div className={styles.post__body__titleSection}>
                         <h3>{title}</h3>
                         <ReactionSection
                             id={id}
@@ -56,16 +64,18 @@ const Post = ({
                     </div>
                     <p>{body}</p>
                     <Link
-                        className={styles.buttonReadAll}
+                        className={styles.post__body__buttonReadAll}
                         to={{ pathname: `/posts/${id}` }}
                     >
                         <div>Читать далее</div>
                     </Link>
                 </div>
             ) : (
-                <div className={`${styles.postBody} ${styles.small}`}>
+                <div
+                    className={`${styles.post__body} ${styles.post__body__small}`}
+                >
                     <h3>{title}</h3>
-                    <div className={styles.postFooterContainer}>
+                    <div className={styles.post__body__footerContainer}>
                         <ReactionSection
                             id={id}
                             idList={idList}
@@ -75,7 +85,7 @@ const Post = ({
                             userPostsDislikes={userPostsDislikes}
                         />
                         <Link
-                            className={styles.buttonReadAll}
+                            className={styles.post__body__buttonReadAll}
                             to={{ pathname: `/posts/${id}` }}
                         >
                             <div>Читать далее</div>

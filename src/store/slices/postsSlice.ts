@@ -19,7 +19,7 @@ type InitialStateType = {
     userPostsLikes: number[];
     userPostsDislikes: number[];
     loading: boolean;
-    error: string | null;
+    error: string | null | undefined;
 };
 
 const initialState: InitialStateType = {
@@ -31,26 +31,30 @@ const initialState: InitialStateType = {
 };
 
 //Fetch функция для постов
-
-export const fetchPosts = createAsyncThunk<PostType[], string | undefined>(
-    'posts/fetchPosts',
-    async (title) => {
-        const responce = await fetch(
-            `https://jsonplaceholder.typicode.com/posts?${title}`
-        );
-        if (!responce.ok) {
-            return;
-        }
-        const data = await responce.json();
-
-        return data;
+//При диспатче функции, можем указать название страницы или id
+export const fetchPosts = createAsyncThunk<
+    PostType[],
+    string | undefined,
+    { rejectValue: string }
+>('posts/fetchPosts', async (title, { rejectWithValue }) => {
+    const responce = await fetch(
+        `https://jsonplaceholder.typicode.com/posts?${title}`
+    );
+    if (!responce.ok) {
+        return rejectWithValue('Server Error!');
     }
-);
+    const data = await responce.json();
+    return data;
+});
 
 const postsSlice = createSlice({
     name: 'posts',
     initialState,
     reducers: {
+        //Логика добавления лайка статье
+        //Если лайк уже поставлен, тогда убираем его и снижаем количество лайков на 1
+        //Иначе ставим лайк, увеличиваем значение лайков на 1 и проверяем состояние дизлайка,
+        //если он стоит то убираем и уменьшаем количество
         likePost(state, action: PayloadAction<{ id: number; idList: number }>) {
             if (state.userPostsLikes.includes(action.payload.id)) {
                 state.postsList[action.payload.idList].likes--;
@@ -70,6 +74,7 @@ const postsSlice = createSlice({
                 }
             }
         },
+        //Аналогичная логика, как у редюсера лайка посту
         dislikePost(
             state,
             action: PayloadAction<{ id: number; idList: number }>
@@ -95,10 +100,12 @@ const postsSlice = createSlice({
     },
     extraReducers: (builder) => {
         builder
+            //В момент загрузки данных (можно вывести лоадер)
             .addCase(fetchPosts.pending, (state) => {
                 state.loading = true;
                 state.error = null;
             })
+            //При успешной загрузке данных
             .addCase(fetchPosts.fulfilled, (state, action) => {
                 function getRandomInt(max: number) {
                     return Math.floor(Math.random() * max);
@@ -114,9 +121,9 @@ const postsSlice = createSlice({
 
                 state.loading = false;
             })
-            .addCase(fetchPosts.rejected, (state) => {
+            .addCase(fetchPosts.rejected, (state, action) => {
                 state.loading = false;
-                state.error = 'Ошибка';
+                state.error = action.error.message;
             });
     },
 });

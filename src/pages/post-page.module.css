@@ -1,37 +1,38 @@
-.pageContainer {
+.page {
     width: 1140px;
     margin: 0 auto;
 }
 
-.topPanel {
+.page__topPanel {
     display: flex;
     margin-top: 20px;
     align-items: center;
 }
 
-.topPanel__buttonBack {
+.page__topPanel__buttonBack {
     display: block;
     text-decoration: none;
     color: black;
     padding: 10px 15px;
 }
 
-.topPanel__buttonBack > label {
+.page__topPanel__buttonBack > label {
     margin-left: 5px;
+    cursor: pointer;
 }
 
-.topPanel__ratingsContainer {
+.page__topPanel__ratingsContainer {
     margin-left: auto;
 }
 
-.mainContent {
+.page__mainContent {
     padding-top: 20px;
 }
 
-.mainContent > h1 {
+.page__mainContent > h1 {
     text-align: center;
 }
 
-.mainContent__body {
+.page__mainContent__body {
     padding: 0 calc((100% - 848px) / 2);
 }

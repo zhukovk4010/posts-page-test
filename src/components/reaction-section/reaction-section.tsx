@@ -1,12 +1,15 @@
+//Компонент секции с лайками и дизлайками
+
 import { useAppDispatch } from '../../hooks/store-hooks';
 import { dislikePost, likePost } from '../../store/slices/postsSlice';
 
-import styles from './reaction-section.module.css';
-
+//Импорты картинок пальцев вверх и вниз
 import likeDefault from '../../images/Like-default.png';
 import dislikeDefault from '../../images/Dislike-default.png';
 import likeActive from '../../images/Like-active.png';
 import dislikeActive from '../../images/Dislike.png';
+
+import styles from './reaction-section.module.css';
 
 type PropsType = {
     id: number;
@@ -29,7 +32,7 @@ const ReactionSection = ({
     return (
         <div className={styles.ratingsPanel}>
             <button
-                className={styles.grade}
+                className={styles.ratingsPanel__button}
                 onClick={() => dispatch(likePost({ id: id, idList: idList }))}
             >
                 <img
@@ -39,7 +42,7 @@ const ReactionSection = ({
             </button>
             <label>{likes}</label>
             <button
-                className={`${styles.grade} ${styles.dislike}`}
+                className={`${styles.ratingsPanel__button} ${styles.ratingsPanel__button__dislike}`}
                 onClick={() =>
                     dispatch(dislikePost({ id: id, idList: idList }))
                 }
