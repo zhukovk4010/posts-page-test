@@ -7,6 +7,7 @@
 -   Typescript
 -   CSS modules
 -   React-routes
+-   opa opa
 
 ## Local start
 
